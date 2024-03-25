@@ -1,5 +1,10 @@
 version: '3'
 services:
+  llm:
+    image: ollama/ollama:latest
+    ports: "11434:11434"
+    networks:
+      - posnet
   redis:
     image: redis:alpine
     ports:
@@ -22,6 +27,7 @@ services:
     depends_on:
       - db
       - redis
+      - llm
 
 networks:
   posnet:

@@ -4,7 +4,7 @@ import ollama
 ollama_view = Blueprint('ollama_view', __name__, url_prefix='/ollama')
 
 
-@ollama_view.route('/get-models')
+@ollama_view.route('/available-models')
 def get_models():
     models = ollama.list()
     return models
