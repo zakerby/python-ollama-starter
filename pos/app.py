@@ -4,7 +4,7 @@ from .utils import INSTANCE_FOLDER_PATH, pretty_date
 from .extensions import cache, db
 
 from .auth import auth
-from .query_model import query_model
+from .ollama import query_model
 
 # For import *
 __all__ = ['create_app']
