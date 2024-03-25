@@ -1,5 +1,5 @@
 from flask import Blueprint, request, url_for, redirect
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 from ..user import User
 
@@ -14,3 +14,9 @@ def login():
         return redirect(url_for("login"))
     login_user(user)
     return redirect(url_for("protected"))
+
+
+@auth.post("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("login"))
