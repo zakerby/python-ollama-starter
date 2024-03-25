@@ -4,11 +4,12 @@ from .utils import INSTANCE_FOLDER_PATH, pretty_date
 from .extensions import cache, db
 
 from .auth import auth
+from .query_model import query_model
 
 # For import *
 __all__ = ['create_app']
 
-DEFAULT_BLUEPRINTS = (auth)
+DEFAULT_BLUEPRINTS = (auth, query_model)
 
 
 def create_app(config=None, app_name=None, blueprints=None):
@@ -47,8 +48,6 @@ def configure_extensions(app):
     db.init_app(app)
     # flask-cache
     cache.init_app(app)
-    
-
 
 
 def configure_blueprints(app, blueprints):
