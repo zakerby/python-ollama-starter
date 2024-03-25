@@ -16,6 +16,22 @@ def login():
     return redirect(url_for("protected"))
 
 
+@auth.post("/register")
+def register():
+    username = request.form["username"]
+    email = request.form["email"]
+    password = request.form["password"]
+    confirm_password = request.form["confirm_password"]
+
+    if password != confirm_password:
+        return redirect(url_for("register"))
+   
+    user = User(username, email, password)
+    user.save()
+    login_user(user)
+    return redirect(url_for("protected"))
+
+
 @auth.post("/logout")
 def logout():
     logout_user()
