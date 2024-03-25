@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 import ollama
 
-ollama_view = Blueprint('query_model', __name__, url_prefix='/ollama')
+ollama_view = Blueprint('ollama_view', __name__, url_prefix='/ollama')
 
 
 @ollama_view.route('/get-models')

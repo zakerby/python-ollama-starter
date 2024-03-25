@@ -4,12 +4,12 @@ from .utils import INSTANCE_FOLDER_PATH, pretty_date
 from .extensions import cache, db
 
 from .auth import auth
-from .ollama import query_model
+from .ollama import ollama_view
 
 # For import *
 __all__ = ['create_app']
 
-DEFAULT_BLUEPRINTS = (auth, query_model)
+DEFAULT_BLUEPRINTS = (auth, ollama_view)
 
 
 def create_app(config=None, app_name=None, blueprints=None):

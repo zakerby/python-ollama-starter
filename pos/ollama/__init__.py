@@ -1,1 +1,1 @@
-from .views import query_model
+from .views import ollama_view
