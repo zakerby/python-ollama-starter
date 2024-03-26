@@ -26,3 +26,8 @@ def create_ollama_model(base_model_name: str,
                 """
     model = ollama_client.create(model=model_name, modelfile=model_file)
     return model
+
+
+def query_ollama_model(model_name: str, query: str):
+    resp = ollama_client.generate(model=model_name, prompt=query)
+    return resp.get('response')
