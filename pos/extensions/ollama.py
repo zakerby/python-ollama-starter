@@ -14,9 +14,10 @@ def list_ollama_model():
 def create_ollama_model(base_model_name: str,
                         model_name: str,
                         model_description: str):
-    model_file = f"""
-        FROM {base_model_name}
-        SYSTEM {model_description}
-    """
-    model = ollama_client.create(model=model_name, model_file=model_file)
+    model_file = f"""FROM {base_model_name}
+                    SYSTEM \"\"\"
+                        {model_description}
+                    \"\"\"
+                """
+    model = ollama_client.create(model=model_name, modelfile=model_file)
     return model

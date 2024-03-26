@@ -11,9 +11,10 @@ def get_models():
 
 @ollama_view.route('/create-model', methods=['POST'])
 def create_model():
-    base_model_name = request["base_model_name"]
-    model_name = request["model_name"]
-    model_description = request["model_description"]
+    data = request.get_json()
+    base_model_name = data["base_model_name"]
+    model_name = data["model_name"]
+    model_description = data["model_description"]    
     model = create_ollama_model(base_model_name, model_name, model_description)
     
     return model
