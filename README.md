@@ -45,3 +45,11 @@ To query an existing model
 curl -X POST http://127.0.0.1:5000/ollama/query-model -H 'Content-Type: application/json' -d '{"model_name":"test", "query": "How are you?"}'
 ```
 
+
+
+## Roadmap
+
+- Add training model support
+
+- Add API key login mgmt
+
