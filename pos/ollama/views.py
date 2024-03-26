@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from llama_index.llms import Ollama
+from llama_index.llms.ollama import Ollama
 
 import ollama
 

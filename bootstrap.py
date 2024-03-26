@@ -5,6 +5,7 @@ from pos.user import User
 
 app = create_app()
 
+
 @app.cli.command("init_db")
 def init_db():
     """
