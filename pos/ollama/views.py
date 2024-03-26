@@ -4,11 +4,11 @@ from llama_index.legacy import VectorStoreIndex, ServiceContext, SimpleDirectory
 from llama_index.legacy.vector_stores.qdrant import QdrantVectorStore
 from llama_index.legacy.storage import StorageContext
 
-
 from pos.extensions import list_ollama_model
 from pos.extensions import create_ollama_model
 from pos.extensions import ollama_model_exists
 from pos.extensions import query_ollama_model
+from pos.extensions import rag_query_ollama_model
 from pos.extensions import get_ollama_instance
 
 from pos.extensions import qdrant_db
@@ -47,31 +47,17 @@ def query_model():
         return response
     else:
         return {"message": "Model does not exist, create it first before querying it"}, 400
-    
+
     
 @ollama_view.route('/query-specialized-model', methods=['POST'])
 def query_specialized_model():
     data = request.get_json()
     model_name = data["model_name"]
     query = data["query"]
-    
+    collection_name = data["collection_name"]
+      
     if ollama_model_exists(model_name):
-        documents = SimpleDirectoryReader("./data").load_data()        
-        vector_store = QdrantVectorStore(client=qdrant_db, collection_name="test")
-        storage_context = StorageContext.from_defaults(
-            vector_store=vector_store)
-
-        ollama_model = get_ollama_instance(model_name)
-        service_context = ServiceContext.from_defaults(
-            llm=ollama_model, 
-            embed_model='local')
-        
-        idx = VectorStoreIndex.from_documents(
-            documents,
-            service_context=service_context,
-            storage_context=storage_context)
-        query_engine = idx.as_query_engine()
-        response = query_engine.query(query)
+        response = rag_query_ollama_model(model_name, collection_name, query)
         return response
     else:
         return {"message": "Model does not exist, create it first before querying it"}, 400
