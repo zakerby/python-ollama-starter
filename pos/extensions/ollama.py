@@ -11,6 +11,11 @@ def list_ollama_model():
     return models
 
 
+def ollama_model_exists(model_name: str):
+    model = ollama_client.show(model_name)
+    return model is not None
+
+
 def create_ollama_model(base_model_name: str,
                         model_name: str,
                         model_description: str):
