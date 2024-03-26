@@ -29,9 +29,6 @@ services:
         - 6333
         - 6334
         - 6335
-      configs:
-        - source: qdrant_config
-          target: /qdrant/config/production.yaml
       volumes:
         - ./qdrant_data:/qdrant_data
       networks:
@@ -52,8 +49,3 @@ services:
 networks:
   posnet:
     driver: bridge
-
-configs:
-  qdrant_config:
-    content: |
-      log_level: INFO  
