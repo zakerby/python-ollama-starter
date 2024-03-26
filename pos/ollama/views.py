@@ -1,7 +1,11 @@
 from flask import Blueprint, request
+from llama_index.llms import Ollama
+
 import ollama
 
 ollama_view = Blueprint('ollama_view', __name__, url_prefix='/ollama')
+
+ollama_instance = Ollama(host='localhost', port=11434)
 
 
 @ollama_view.route('/available-models')

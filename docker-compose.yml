@@ -2,7 +2,8 @@ version: '3'
 services:
   llm:
     image: ollama/ollama:latest
-    ports: "11434:11434"
+    ports: 
+      - "11434:11434"
     networks:
       - posnet
   redis:
