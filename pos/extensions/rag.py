@@ -1,9 +1,12 @@
 from llama_index.core import QueryBundle
+from llama_index.core.schema import NodeWithScore
 from llama_index.core.retrievers import BaseRetriever
+from llama_index.core.vector_stores import VectorStoreQuery
 from llama_index.vector_stores.postgres import PGVectorStore
-from typing import Any, List
+from typing import Any, List, Optional
 
 
+# TODO: Abstract it to manage differents vector stores
 class VectorDBRetriever(BaseRetriever):
     """Retriever over a postgres vector store."""
 
@@ -23,7 +26,7 @@ class VectorDBRetriever(BaseRetriever):
 
     def _retrieve(self, query_bundle: QueryBundle) -> List[NodeWithScore]:
         """Retrieve."""
-        query_embedding = embed_model.get_query_embedding(
+        query_embedding = self._embed_model.get_query_embedding(
             query_bundle.query_str
         )
         vector_store_query = VectorStoreQuery(
@@ -31,7 +34,7 @@ class VectorDBRetriever(BaseRetriever):
             similarity_top_k=self._similarity_top_k,
             mode=self._query_mode,
         )
-        query_result = vector_store.query(vector_store_query)
+        query_result = self._vector_store.query(vector_store_query)
 
         nodes_with_scores = []
         for index, node in enumerate(query_result.nodes):
