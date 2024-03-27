@@ -42,7 +42,7 @@ def rag_query_ollama_model(model_name: str, collection_name: str, query: str):
     retriever = VectorDBRetriever(vector_store, llm)
     query_engine = RetrieverQueryEngine.from_args(retriever, llm=llm)
     response = query_engine.query(query)
-    
+    print(response)
     return response
 
 

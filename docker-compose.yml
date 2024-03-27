@@ -12,6 +12,16 @@ services:
       - "${REDIS_PORT}:${REDIS_PORT}"
     networks:
       - posnet
+  pg_vector_db:
+    image: ankane/pgvector
+    environment:
+      - POSTGRES_USER=${PG_VECTOR_USER}
+      - POSTGRES_PASSWORD=${PG_VECTOR_PASSWORD}
+      - POSTGRES_DB=${PG_VECTOR_DB_NAME}
+    ports:
+      - "${PG_VECTOR_PORT}:${PG_VECTOR_PORT}"
+    networks:
+      - posnet
   pg_db:
     image: postgres:alpine
     environment:
@@ -22,17 +32,17 @@ services:
       - "${PG_PORT}:${PG_PORT}"
     networks:
       - posnet
-  web:
-    container_name: pos-app
-    build: .
-    ports:
-      - "5000:5000"
-    volumes:
-      - .:/app
-    depends_on:
-      - pg_db
-      - redis
-      - llm
+  # web:
+  #   container_name: pos-app
+  #   build: .
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - pg_db
+  #     - redis
+  #     - llm
 
 networks:
   posnet:

@@ -3,7 +3,10 @@ from llama_index.core.schema import NodeWithScore
 from llama_index.core.retrievers import BaseRetriever
 from llama_index.core.vector_stores import VectorStoreQuery
 from llama_index.vector_stores.postgres import PGVectorStore
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from typing import Any, List, Optional
+
+embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en")
 
 
 # TODO: Abstract it to manage differents vector stores
@@ -26,7 +29,7 @@ class VectorDBRetriever(BaseRetriever):
 
     def _retrieve(self, query_bundle: QueryBundle) -> List[NodeWithScore]:
         """Retrieve."""
-        query_embedding = self._embed_model.get_query_embedding(
+        query_embedding = embed_model.get_query_embedding(
             query_bundle.query_str
         )
         vector_store_query = VectorStoreQuery(
