@@ -56,8 +56,5 @@ def query_specialized_model():
     query = data["query"]
     collection_name = data["collection_name"]
       
-    if ollama_model_exists(model_name):
-        response = rag_query_ollama_model(model_name, collection_name, query)
-        return response
-    else:
-        return {"message": "Model does not exist, create it first before querying it"}, 400
+    response = rag_query_ollama_model(model_name, collection_name, query)
+    return response
