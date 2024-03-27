@@ -46,6 +46,7 @@ def build_rag_index(documents_path: str,
         storage_context=storage_context)
     return idx
 
+
 def rag_query_ollama_model(model_name: str, collection_name: str, query: str):
     vector_store = QdrantVectorStore(
         client=qdrant_db,
@@ -56,6 +57,7 @@ def rag_query_ollama_model(model_name: str, collection_name: str, query: str):
     llm_model = get_ollama_instance(model_name)
     service_context = ServiceContext.from_defaults(
         llm=llm_model,
+        callback_manager=None,
         embed_model='local')
     idx = build_rag_index('./data', service_context, storage_context)
     query_engine = idx.as_query_engine()
