@@ -12,7 +12,8 @@ def get_llm(model_url=DEFAULT_MODEL_URL) -> LlamaCPP:
         model_path=None,
         temperature=0.1,
         max_new_tokens=256,
-        # llama2 has a context window of 4096 tokens, but we set it lower to allow for some wiggle room
+        # llama2 has a context window of 4096 tokens,
+        # but we set it lower to allow for some wiggle room
         context_window=3900,
         # kwargs to pass to __call__()
         generate_kwargs={},

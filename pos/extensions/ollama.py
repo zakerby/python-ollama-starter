@@ -1,10 +1,10 @@
 from llama_index.llms.ollama import Ollama
-from llama_index.legacy import VectorStoreIndex, ServiceContext, SimpleDirectoryReader
-from llama_index.legacy.vector_stores.qdrant import QdrantVectorStore
-from llama_index.legacy.storage import StorageContext
+from llama_index.core.query_engine import RetrieverQueryEngine
 import ollama
 
-from pos.extensions import qdrant_db
+from pos.extensions.vector_store import get_vector_store
+from pos.extensions.rag import VectorDBRetriever
+from pos.extensions.llm import get_llm
 
 ollama_client = ollama.Client(host='http://localhost:11434')
 
@@ -36,32 +36,13 @@ def query_ollama_model(model_name: str, query: str):
     return resp.get('response')
 
 
-def build_rag_index(documents_path: str,
-                    service_context: ServiceContext,
-                    storage_context: StorageContext):
-    documents = SimpleDirectoryReader(documents_path).load_data()        
-    idx = VectorStoreIndex.from_documents(
-        documents,
-        service_context=service_context,
-        storage_context=storage_context)
-    return idx
-
-
 def rag_query_ollama_model(model_name: str, collection_name: str, query: str):
-    vector_store = QdrantVectorStore(
-        client=qdrant_db,
-        collection_name=collection_name)
-    storage_context = StorageContext.from_defaults(
-        vector_store=vector_store)
-
-    llm_model = get_ollama_instance(model_name)
-    service_context = ServiceContext.from_defaults(
-        llm=llm_model,
-        callback_manager=None,
-        embed_model='local')
-    idx = build_rag_index('./data', service_context, storage_context)
-    query_engine = idx.as_query_engine()
+    vector_store = get_vector_store()
+    llm = get_llm()
+    retriever = VectorDBRetriever(vector_store, llm)
+    query_engine = RetrieverQueryEngine.from_args(retriever, llm=llm)
     response = query_engine.query(query)
+    
     return response
 
 
