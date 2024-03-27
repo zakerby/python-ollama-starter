@@ -1,4 +1,6 @@
 from flask import Flask
+from dotenv import load_dotenv
+
 from .config import DefaultConfig
 from .utils import INSTANCE_FOLDER_PATH, pretty_date
 from .extensions import cache, db
@@ -14,7 +16,7 @@ DEFAULT_BLUEPRINTS = (auth, ollama_view)
 
 def create_app(config=None, app_name=None, blueprints=None):
     # Create a Flask app
-
+    load_dotenv()
     if app_name is None:
         app_name = DefaultConfig.PROJECT
     if blueprints is None:

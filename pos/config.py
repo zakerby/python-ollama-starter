@@ -26,14 +26,11 @@ class DefaultConfig(BaseConfig):
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
-    PG_HOST = "localhost"
-    PG_PORT = "5432"
-    PG_USER = "hello_flask"
-    PG_PASSWORD = "hello_flask"
-    PG_DB_NAME = "hello_flask_dev"
-    
-
-    # POSTGRESQL for production
+    PG_HOST = os.getenv("PG_HOST", "localhost")
+    PG_PORT = os.getenv("PG_PORT", "5432")
+    PG_USER = os.getenv("PG_USER", "pos_user")
+    PG_PASSWORD = os.getenv("PG_PASSWORD", "pos_password")
+    PG_DB_NAME = os.getenv("PG_DB_NAME", "pos_dev")
     SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_DB_NAME}'
 
     # Flask-cache
