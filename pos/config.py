@@ -5,7 +5,6 @@ from .utils import INSTANCE_FOLDER_PATH
 
 class BaseConfig(object):
     # Change these settings as per your needs
-
     PROJECT = "flaskstarter"
     PROJECT_NAME = "flaskstarter.domain"
     PROJECT_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
@@ -26,12 +25,16 @@ class DefaultConfig(BaseConfig):
     # Flask-Sqlalchemy
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-    # SQLITE for production
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + INSTANCE_FOLDER_PATH + '/db.sqlite'
+    
+    PG_HOST = "localhost"
+    PG_PORT = "5432"
+    PG_USER = "hello_flask"
+    PG_PASSWORD = "hello_flask"
+    PG_DB_NAME = "hello_flask_dev"
+    
 
     # POSTGRESQL for production
-    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:pass@ip/dbname'
+    SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_DB_NAME}'
 
     # Flask-cache
     CACHE_TYPE = 'simple'

@@ -1,5 +1,6 @@
 from llama_index.core import QueryBundle
 from llama_index.core.retrievers import BaseRetriever
+from llama_index.vector_stores.postgres import PGVectorStore
 from typing import Any, List
 
 
