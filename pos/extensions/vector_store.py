@@ -1,15 +1,16 @@
 import psycopg2
 from llama_index.vector_stores.postgres import PGVectorStore
 
-db_name = "vector_db"
-host = "localhost"
-password = "password"
-port = "5432"
-user = "hello_flask"
+from pos.config import DefaultConfig
+
+db_name = DefaultConfig.PG_DB_NAME
+host = DefaultConfig.PG_HOST
+password = DefaultConfig.PG_PASSWORD
+port = DefaultConfig.PG_PORT
+user = DefaultConfig.PG_USER
 
 
 def init_vector_store():
-    # conn = psycopg2.connect(connection_string)
     conn = psycopg2.connect(
         dbname="postgres",
         host=host,
