@@ -9,42 +9,40 @@ services:
   redis:
     image: redis:alpine
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT}:${REDIS_PORT}"
     networks:
       - posnet
-  db:
+  pg_vector_db:
+    image: ankane/pgvector
+    environment:
+      - POSTGRES_USER=${PG_VECTOR_USER}
+      - POSTGRES_PASSWORD=${PG_VECTOR_PASSWORD}
+      - POSTGRES_DB=${PG_VECTOR_DB_NAME}
+    ports:
+      - "${PG_VECTOR_PORT}:${PG_VECTOR_PORT}"
+    networks:
+      - posnet
+  pg_db:
     image: postgres:alpine
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=${PG_DB_NAME}
     ports:
-      - "5432:5432"
+      - "${PG_PORT}:${PG_PORT}"
     networks:
       - posnet
-  qdrant:
-      image: qdrant/qdrant:latest
-      restart: always
-      container_name: qdrant
-      ports:
-        - 6333:6333
-        - 6334:6334
-      expose:
-        - 6333
-        - 6334
-        - 6335
-      volumes:
-        - ./qdrant_data:/qdrant_data
-      networks:
-        - posnet
-
-  web:
-    container_name: pos-app
-    build: .
-    ports:
-      - "5000:5000"
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-      - redis
-      - llm
+  # web:
+  #   container_name: pos-app
+  #   build: .
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - pg_db
+  #     - redis
+  #     - llm
 
 networks:
   posnet:

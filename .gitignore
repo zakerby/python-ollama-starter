@@ -13,3 +13,4 @@ venv/
 
 # Data
 data/
+llm_models/
