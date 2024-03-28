@@ -18,6 +18,7 @@ services:
       - POSTGRES_USER=${PG_VECTOR_USER}
       - POSTGRES_PASSWORD=${PG_VECTOR_PASSWORD}
       - POSTGRES_DB=${PG_VECTOR_DB_NAME}
+      - PGPORT=${PG_VECTOR_PORT}
     ports:
       - "${PG_VECTOR_PORT}:${PG_VECTOR_PORT}"
     networks:

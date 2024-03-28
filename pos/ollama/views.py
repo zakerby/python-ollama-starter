@@ -57,4 +57,5 @@ def query_specialized_model():
     collection_name = data["collection_name"]
       
     response = rag_query_ollama_model(model_name, collection_name, query)
-    return response
+    
+    return {"response": response}, 200

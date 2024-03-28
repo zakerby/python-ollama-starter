@@ -33,6 +33,13 @@ class DefaultConfig(BaseConfig):
     PG_DB_NAME = os.getenv("PG_DB_NAME", "pos_dev")
     SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_DB_NAME}'
 
+
+    PG_VECTOR_HOST = os.getenv("PG_VECTOR_HOST", "localhost")
+    PG_VECTOR_PORT = os.getenv("PG_VECTOR_PORT", "5432")
+    PG_VECTOR_USER = os.getenv("PG_VECTOR_USER", "pos_user")
+    PG_VECTOR_PASSWORD = os.getenv("PG_VECTOR_PASSWORD", "pos_password")
+    PG_VECTOR_DB_NAME = os.getenv("PG_VECTOR_DB_NAME", "pos_dev")
+
     # Flask-cache
     CACHE_TYPE = 'simple'
     CACHE_DEFAULT_TIMEOUT = 60

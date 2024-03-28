@@ -3,11 +3,11 @@ from llama_index.vector_stores.postgres import PGVectorStore
 
 from pos.config import DefaultConfig
 
-db_name = DefaultConfig.PG_DB_NAME
-host = DefaultConfig.PG_HOST
-password = DefaultConfig.PG_PASSWORD
-port = DefaultConfig.PG_PORT
-user = DefaultConfig.PG_USER
+db_name = DefaultConfig.PG_VECTOR_DB_NAME
+host = DefaultConfig.PG_VECTOR_HOST
+password = DefaultConfig.PG_VECTOR_PASSWORD
+port = DefaultConfig.PG_VECTOR_PORT
+user = DefaultConfig.PG_VECTOR_USER
 
 
 def init_vector_store():
