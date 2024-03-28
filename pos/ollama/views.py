@@ -1,17 +1,11 @@
 from flask import Blueprint, request
 
-from llama_index.legacy import VectorStoreIndex, ServiceContext, SimpleDirectoryReader
-from llama_index.legacy.vector_stores.qdrant import QdrantVectorStore
-from llama_index.legacy.storage import StorageContext
-
 from pos.extensions import list_ollama_model
 from pos.extensions import create_ollama_model
 from pos.extensions import ollama_model_exists
 from pos.extensions import query_ollama_model
-from pos.extensions import rag_query_ollama_model
-from pos.extensions import get_ollama_instance
+from pos.extensions import rag_query_llm_model
 
-from pos.extensions import qdrant_db
 
 ollama_view = Blueprint('ollama_view', __name__, url_prefix='/ollama')
 
@@ -56,6 +50,6 @@ def query_specialized_model():
     query = data["query"]
     collection_name = data["collection_name"]
       
-    response = rag_query_ollama_model(model_name, collection_name, query)
+    response = rag_query_llm_model(model_name, collection_name, query)
     
     return {"response": response}, 200

@@ -36,7 +36,7 @@ def query_ollama_model(model_name: str, query: str):
     return resp.get('response')
 
 
-def rag_query_ollama_model(model_name: str, collection_name: str, query: str):
+def rag_query_llm_model(model_name: str, collection_name: str, query: str):
     vector_store = get_vector_store()
     llm = get_llm()
     retriever = VectorDBRetriever(vector_store, llm)

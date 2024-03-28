@@ -1,8 +1,5 @@
 import os
 
-from .utils import INSTANCE_FOLDER_PATH
-
-
 class BaseConfig(object):
     # Change these settings as per your needs
     PROJECT = "flaskstarter"
@@ -41,7 +38,9 @@ class DefaultConfig(BaseConfig):
     PG_VECTOR_DB_NAME = os.getenv("PG_VECTOR_DB_NAME", "pos_dev")
 
     # Flask-cache
-    CACHE_TYPE = 'simple'
+    CACHE_TYPE = 'RedisCache'
+    CACHE_REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
+    CACHE_REDIS_PORT = os.getenv("REDIS_PORT", "6379")
     CACHE_DEFAULT_TIMEOUT = 60
 
     # Flask-mail
