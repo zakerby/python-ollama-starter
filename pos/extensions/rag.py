@@ -14,7 +14,7 @@ embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en")
 
 
 class VectorDBIngestor:
-    """Ingestor over a postgres vector store."""
+    """Ingestor of PDF documents over a postgres vector store."""
 
     def __init__(self, vector_store: PGVectorStore) -> None:
         """Init params."""
@@ -23,9 +23,10 @@ class VectorDBIngestor:
             chunk_size=1024,
             # separator=" ",
         )
-    def process_document_batch(self, document_path: str) -> None:
-        loader = PyMuPDFReader()
-        documents = loader.load(file_path=document_path)
+        self._loader = PyMuPDFReader()
+
+    def process_document(self, document_path: str) -> None:
+        documents = self._loader.load(file_path=document_path)
         
         text_chunks = []
         # maintain relationship with source doc index, to help inject doc metadata in (3)
@@ -61,8 +62,6 @@ class VectorDBIngestor:
             )
             node.embedding = node_embedding
         self._vector_store.add(nodes)
-
-
 
 
 # TODO: Abstract it to manage differents vector stores
