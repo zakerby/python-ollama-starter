@@ -6,7 +6,7 @@ from pos.extensions.vector_store import get_vector_store
 from pos.extensions.rag import VectorDBRetriever
 from pos.extensions.llm import get_llm
 
-ollama_client = ollama.Client(host='http://localhost:11434')
+ollama_client = ollama.Client(host="http://localhost:11434")
 
 
 def list_ollama_model():
@@ -19,9 +19,7 @@ def ollama_model_exists(model_name: str):
     return model is not None
 
 
-def create_ollama_model(base_model_name: str,
-                        model_name: str,
-                        model_description: str):
+def create_ollama_model(base_model_name: str, model_name: str, model_description: str):
     model_file = f"""FROM {base_model_name}
                     SYSTEM \"\"\"
                         {model_description}
@@ -33,7 +31,7 @@ def create_ollama_model(base_model_name: str,
 
 def query_ollama_model(model_name: str, query: str):
     resp = ollama_client.generate(model=model_name, prompt=query)
-    return resp.get('response')
+    return resp.get("response")
 
 
 def rag_query_llm_model(model_name: str, collection_name: str, query: str):
@@ -47,4 +45,4 @@ def rag_query_llm_model(model_name: str, collection_name: str, query: str):
 
 
 def get_ollama_instance(model_name: str):
-    return Ollama(host='localhost', port=11434, model=model_name)
+    return Ollama(host="localhost", port=11434, model=model_name)

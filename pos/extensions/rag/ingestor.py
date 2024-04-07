@@ -9,9 +9,13 @@ from typing import List
 class VectorDBIngestor:
     """Ingestor of PDF documents over a postgres vector store."""
 
-    def __init__(self,
-                 vector_store: PGVectorStore,
-                 embed_model: HuggingFaceEmbedding = HuggingFaceEmbedding(model_name="BAAI/bge-small-en")) -> None:
+    def __init__(
+        self,
+        vector_store: PGVectorStore,
+        embed_model: HuggingFaceEmbedding = HuggingFaceEmbedding(
+            model_name="BAAI/bge-small-en"
+        ),
+    ) -> None:
         """Init params."""
         self._vector_store = vector_store
         self._text_parser = SentenceSplitter(

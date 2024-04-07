@@ -5,11 +5,11 @@ DEFAULT_MODEL_URL = "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF/resol
 
 
 def get_llm(model_url=DEFAULT_MODEL_URL) -> LlamaCPP:
-    
+
     llm_model = LlamaCPP(
         # You can pass in the URL to a GGML model to download it automatically
         # optionally, you can set the path to a pre-downloaded model instead of model_url
-        model_path='/home/zakerby/Projects/llm/python-ollama-starter/llm_models/gemma-2b.gguf',
+        model_path="/home/zakerby/Projects/llm/python-ollama-starter/llm_models/gemma-2b.gguf",
         temperature=0.1,
         max_new_tokens=256,
         # llama2 has a context window of 4096 tokens,

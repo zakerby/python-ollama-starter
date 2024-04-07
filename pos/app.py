@@ -9,7 +9,7 @@ from .auth import auth
 from .ollama import ollama_view
 
 # For import *
-__all__ = ['create_app']
+__all__ = ["create_app"]
 
 DEFAULT_BLUEPRINTS = (auth, ollama_view)
 
@@ -22,9 +22,9 @@ def create_app(config=None, app_name=None, blueprints=None):
     if blueprints is None:
         blueprints = DEFAULT_BLUEPRINTS
 
-    app = Flask(app_name,
-                instance_path=INSTANCE_FOLDER_PATH,
-                instance_relative_config=True)
+    app = Flask(
+        app_name, instance_path=INSTANCE_FOLDER_PATH, instance_relative_config=True
+    )
 
     configure_app(app, config)
     configure_hook(app)
@@ -40,7 +40,7 @@ def create_app(config=None, app_name=None, blueprints=None):
 def configure_app(app, config=None):
     # Different ways of configurations i.e local or production
     app.config.from_object(DefaultConfig)
-    app.config.from_pyfile('production.cfg', silent=True)
+    app.config.from_pyfile("production.cfg", silent=True)
     if config:
         app.config.from_object(config)
 
@@ -65,7 +65,7 @@ def configure_template_filters(app):
         return pretty_date(value)
 
     @app.template_filter()
-    def format_date(value, format='%Y-%m-%d'):
+    def format_date(value, format="%Y-%m-%d"):
         return value.strftime(format)
 
 
