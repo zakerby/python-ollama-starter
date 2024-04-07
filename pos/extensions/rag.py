@@ -27,7 +27,7 @@ class VectorDBIngestor:
 
     def process_document(self, document_path: str) -> None:
         documents = self._loader.load(file_path=document_path)
-        
+
         text_chunks = []
         # maintain relationship with source doc index, to help inject doc metadata in (3)
         doc_idxs = []

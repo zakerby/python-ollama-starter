@@ -3,6 +3,7 @@ from llama_index.core.node_parser import SentenceSplitter
 from llama_index.readers.file import PyMuPDFReader
 from llama_index.core.schema import TextNode
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from typing import List
 
 
 class VectorDBIngestor:
@@ -22,7 +23,7 @@ class VectorDBIngestor:
 
     def process_document(self, document_path: str) -> None:
         documents = self._loader.load(file_path=document_path)
-        
+
         text_chunks = []
         # maintain relationship with source doc index, to help inject doc metadata in (3)
         doc_idxs = []
@@ -43,7 +44,7 @@ class VectorDBIngestor:
 
     def ingest(self, node: TextNode) -> None:
         """Ingest."""
-        node_embedding = embed_model.get_text_embedding(
+        node_embedding = self._embed_model.get_text_embedding(
             node.get_content(metadata_mode="all")
         )
         node.embedding = node_embedding
@@ -52,9 +53,8 @@ class VectorDBIngestor:
     def ingest_batch(self, nodes: List[TextNode]) -> None:
         """Ingest batch"""
         for node in nodes:
-            node_embedding = embed_model.get_text_embedding(
+            node_embedding = self._embed_model.get_text_embedding(
                 node.get_content(metadata_mode="all")
             )
             node.embedding = node_embedding
         self._vector_store.add(nodes)
-
